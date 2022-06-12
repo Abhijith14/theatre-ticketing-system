@@ -1,0 +1,454 @@
+/*--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+--*/
+/*-- reset --*/
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
+article, aside, details, figcaption, figure,footer, header, hgroup, menu, nav, section {display: block;}
+ol,ul{list-style:none;margin:0px;padding:0px;}
+blockquote,q{quotes:none;}
+blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}
+table{border-collapse:collapse;border-spacing:0;}
+/*-- start editing from here --*/
+a{text-decoration:none;}
+.txt-rt{text-align:right;}/* text align right */
+.txt-lt{text-align:left;}/* text align left */
+.txt-center{text-align:center;}/* text align center */
+.float-rt{float:right;}/* float right */
+.float-lt{float:left;}/* float left */
+.clear{clear:both;}/* clear float */
+.pos-relative{position:relative;}/* Position Relative */
+.pos-absolute{position:absolute;}/* Position Absolute */
+.vertical-base{	vertical-align:baseline;}/* vertical align baseline */
+.vertical-top{	vertical-align:top;}/* vertical align top */
+nav.vertical ul li{	display:block;}/* vertical menu */
+nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
+img{max-width:100%;}
+/*-- end reset --*/
+body {
+    font-family: 'Open Sans', sans-serif;
+    background: url(../images/movieticket1.jpg)repeat 0px 0px;
+    background-attachment: fixed;
+	-webkit-background-size:cover;
+	-moz-background-size:cover; 
+	background-size:cover;
+}
+h1 {
+    font-size: 3em;
+    text-align: center;
+    color: #ffeb3b;
+    font-weight: 100;
+    font-family: 'Lobster Two', cursive;
+    letter-spacing: 3px;
+}
+/*-- main --*/
+.mainw3-agile{
+    padding: 3em 0 0;
+}
+.main-agileinfo {
+    width: 50%;
+    margin: 3em auto 5em;
+    background: rgba(136, 136, 136, 0.36);
+    padding: 1.5em;
+	-webkit-box-shadow: -8px 8px 7px 0px rgb(3, 3, 3);
+	-moz-box-shadow: -8px 8px 7px 0px rgb(3, 3, 3); 
+    box-shadow: -8px 8px 7px 0px rgb(3, 3, 3);
+} 
+.w3pay-left{
+	float: left;
+    width: 50%;
+    background: url(../images/movieticket2.jpg)repeat 0px 0px;
+    background-size: cover; 
+    min-height: 425px;
+	text-align: center; 
+	position:relative;
+}
+.w3pay-left-text{
+    padding: 2em;
+}
+.w3pay-right {
+    float: right;
+    width: 50%;
+	background:#fff;
+} 
+.w3pay-left-text h2 {
+    font-size: 2em;
+    color: #fff;
+    font-family: 'Lobster Two', cursive;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.w3pay-left-text img {
+    width: 33%; 
+}
+.w3pay-left-text p {
+    font-size: .9em;
+    color: #fff;
+    line-height: 1.8em;
+    margin: 1.5em 0;
+    background: rgba(0, 0, 0, 0.38);
+    padding: .5em;
+}
+.w3pay-left-text h3 {
+    font-size: 3em;
+    color: #FFEB3B;
+    font-family: 'Lobster Two', cursive;
+}
+.w3pay-left h6 {
+    font-size: 0.8em;
+    background: rgba(0, 0, 0, 0.62);
+    font-weight: 200;
+    letter-spacing: 4px;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+}
+.w3pay-left h6 a{ 
+    color: #fff; 
+	display:block;
+	padding: .8em 0;
+}
+.w3pay-left h6 a i.fa{
+    margin-right: 1em;
+}
+/*-- creditCard form --*/
+.card-bounding {
+    padding: 2.5em 2em;
+} 
+.card-bounding aside {
+    font-size: 1.4em;
+    padding-bottom: .3em;
+    font-family: 'Lobster Two', cursive;
+    letter-spacing: 1px;
+	color: #222;
+} 
+.card-container {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 48px;
+    position: relative;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    margin: 0 auto 1.5em;
+}
+.card-container input {
+    width: 100%;
+    letter-spacing: 1px;
+    font-size: 1em;
+    padding: 0.8em 1em;
+    border: 0;
+    outline: none;
+    box-sizing: border-box;
+} 
+.card-type {
+    width: 40px;
+    height: 28px;
+    background: url(../images/cards.png);
+    background-position: 0 -145px;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 8px;
+    left: 12px;
+} 
+.card-type.mastercard { background-position: 0 0; }
+
+.card-type.visa { background-position: 0 -57px; }
+
+.card-type.amex { background-position: 0 -28px; }
+
+.card-type.discover { background-position: 0 -86px; }
+
+.card-valid i.fa {
+    position: absolute;
+    top: 0;
+    right: 15px;
+    line-height: 44px;
+    font-size: 1.3em;
+    color: #ccc; 
+} 
+.card-valid.active i.fa{ color: #42ca7c; } 
+.card-details {
+	width: 100%;
+	text-align: left;
+	margin-bottom: 1.5em;
+	-webkit-transition: 300ms ease;
+	-moz-transition: 300ms ease; 
+	transition: 300ms ease;
+} 
+.card-details input { 
+	width: 100%;
+    letter-spacing: 1px;
+    font-size: 1em;
+    padding: 0.6em 1em; 
+    outline: none;
+    box-sizing: border-box;
+} 
+.card-details input.error {
+	border: 1px solid #c2313c;
+	box-shadow: 0 4px 8px 0 rgba(238,76,87,0.3);
+	outline: none;
+} 
+.card-details .expiration {
+	width: 50%;
+	float: left;
+	padding-right: 5%;
+} 
+.card-details .cvv {
+	width: 45%;
+	float: left;
+}
+.w3pay-right input[type="submit"] {
+    outline: none;
+    color: #fff;
+    padding: 0.6em 1em;
+    font-size: 1em;
+    -webkit-appearance: none;
+    background: #16a085;
+    border: 2px solid #16a085;
+    width: 100%;
+    cursor: pointer;
+    margin: 0;
+	-webkit-transition:.5s all;
+	-moz-transition:.5s all; 
+	-o-transition:.5s all;
+	-ms-transition:.5s all;
+	transition:.5s all;
+}
+.w3pay-right input[type="submit"]:hover {
+    background: #FFEB3B;
+    color: #16a085;
+}
+/*-- //creditCard form --*/
+/*-- //main --*/
+/*-- copyright --*/
+.w3lscopy-agile{
+    margin: 2em 0;
+    text-align: center;
+}
+.w3lscopy-agile p {
+    font-size: 0.9em;
+    color: #fff;
+    line-height: 1.8em;
+    letter-spacing: 1px;
+}
+.w3lscopy-agile p a{
+    color: #fff;
+}
+.w3lscopy-agile p a:hover{
+    color: #FFEB3B; 
+	-webkit-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-o-transition: 0.5s all;
+	-ms-transition: 0.5s all;
+	transition: 0.5s all;
+}
+/*-- //copyright --*/  
+/*-- responsive-design --*/ 
+@media(max-width:1366px){
+.main-agileinfo {
+    width: 55%; 
+} 
+} 
+@media(max-width:1080px){
+.main-agileinfo {
+    width: 70%;
+}
+.mainw3-agile {
+    padding: 2em 0 0;
+}
+h1 {
+    font-size: 2.6em; 
+    letter-spacing: 2px;
+}
+} 
+@media(max-width:991px){
+.card-bounding aside {
+    font-size: 1.2em; 
+}
+.w3pay-left-text h2 {
+    font-size: 1.5em; 
+}
+.w3pay-left { 
+    min-height: 410px; 
+}
+.card-container { 
+    padding-left: 64px;
+    padding-right: 40px; 
+}
+.main-agileinfo { 
+    margin: 2em auto 3em; 
+} 
+}
+@media(max-width:800px){
+h1 {
+    font-size: 2.4em; 
+}
+.main-agileinfo {
+    width: 87%;
+}
+.w3pay-left-text h3 {
+    font-size: 2.5em; 
+}
+.card-container input { 
+    padding: 0.8em 0.5em; 
+}
+}
+@media(max-width:736px){
+.w3pay-right { 
+    width: 52%; 
+}
+.w3pay-left {
+    width: 48%;
+	min-height: 394px;
+}
+.main-agileinfo { 
+    padding: 1em; 
+}
+.card-bounding {
+    padding: 2em 1.8em;
+}
+.w3pay-left-text {
+    padding: 1.8em;
+} 
+}
+@media(max-width:667px){
+.card-bounding {
+    padding: 1.8em 1.5em;
+}
+.w3pay-left,.w3pay-right{
+    width: 100%;
+    min-height: inherit;
+    float: none;
+}
+.main-agileinfo {
+    width: 65%;
+}
+.w3pay-left-text img {
+    width: 17%;
+}
+.w3pay-left-text h2 {
+    font-size: 1.3em;
+}
+.w3pay-left-text h3 { 
+    margin-bottom: 0.8em;
+} 
+.card-details input,.card-container input { 
+    font-size: 0.9em; 
+}
+.card-details { 
+    margin-bottom: 1em; 
+}
+.card-type { 
+    top: 6px; 
+}
+.card-container { 
+    margin: 0 auto 1em;
+}
+}
+@media(max-width:568px){
+.mainw3-agile {
+    padding: 1.5em 0 0;
+}
+h1 {
+    font-size: 2em;
+}
+.main-agileinfo {
+    width: 72%;
+}
+.w3pay-left-text {
+    padding: 1.5em;
+}
+.w3pay-left-text p {
+    font-size: .8em; 
+}
+.w3pay-left-text h3 {
+    margin-bottom: 1.2em;
+    font-size: 2em;
+}
+.w3pay-left h6 { 
+    letter-spacing: 2px; 
+}
+.w3lscopy-agile p {
+    font-size: 0.8em; 
+}
+.main-agileinfo {
+    margin: 2em auto;
+} 
+} 
+@media(max-width:414px){
+.w3pay-right input[type="submit"] { 
+    font-size: 0.9em; 
+}
+.main-agileinfo {
+    width: 78%;
+}
+.w3lscopy-agile p { 
+    padding: 0 1em;
+}
+}
+@media(max-width:384px){
+.card-bounding {
+    padding: 1.6em 1.2em;
+}
+.main-agileinfo {
+    width: 79%;
+}
+.main-agileinfo {
+    margin: 1.5em auto;
+}
+.card-bounding aside {
+    font-size: 1.1em;
+}
+.card-type {
+    top: 5px;
+}
+} 
+@media(max-width:320px){
+h1 {
+    font-size: 1.7em;
+    letter-spacing: 1px;
+}
+.w3pay-left-text {
+    padding: 1.2em;
+}
+.card-details input, .card-container input {
+    font-size: 0.8em;
+}
+.main-agileinfo {
+    padding: 0.8em;
+	width: 83%;
+	margin: 1.2em auto;
+}
+.card-type {
+    top: 2px;
+    left: 8px;
+}
+.card-container {
+    padding-left: 55px;
+    padding-right: 32px;
+}
+.card-valid i.fa { 
+    right: 7px;
+    line-height: 35px;
+    font-size: 1.1em; 
+}
+.card-bounding aside {
+    font-size: 1em;
+}
+.w3pay-left-text h2 {
+    font-size: 1.1em;
+    letter-spacing: 1px;
+}
+.w3pay-left-text p { 
+    margin: 1em 0; 
+}
+.card-container input {
+    padding: 0.7em 0.5em;
+} 
+.w3lscopy-agile {
+    margin: 1.5em 0; 
+}
+}
+/*-- //responsive-design --*/

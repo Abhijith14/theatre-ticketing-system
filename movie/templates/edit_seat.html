@@ -1,0 +1,375 @@
+{% load static %}
+{% load myapp_tags %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>Movie Seat Selection Flat::Ticket Booking</title>
+    <!-- Meta-Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!-- //Meta-Tags -->
+    <!-- Index-Page-CSS -->
+    <link rel="stylesheet" href="{% static 'css2/style.css' %}" type="text/css" media="all">
+    <!-- //Custom-Stylesheet-Links -->
+    <!--fonts -->
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+    <!-- //fonts -->
+</head>
+
+<body onload="onLoaderFunc()">
+    <div style="width: 50%; margin: auto; display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 50px;" class="row">
+        {% for i in screens %}
+        {% with i|screen_id as strs %}
+        <div class="col-md-2">
+            <a href="edit_seat{{ strs }}">
+                <button type="button" class="btn btn-light">{{ i }}</button>
+            </a>
+        </div>
+         {% endwith %}
+        {% endfor %}
+
+    </div>
+    <div class="container">
+
+        <!-- seat layout -->
+        <div class="seatStructure txt-center" style="overflow-x:auto;">
+             <!-- seat availabilty list -->
+             <ul class="seat_w3ls">
+
+                 {% for i in category %}
+
+                 <style>.color{{ i.id }}:before { background: {{i.color}};}</style>
+
+                 <li class="smallBox color{{i.id}}">{{ i.cats_name }}</li>
+
+                 {% endfor %}
+
+<!--                <li class="smallBox greenBox">Selected Seat</li>-->
+
+<!--                 <li class="smallBox redBox">Reserved Seat</li>-->
+
+<!--                <li class="smallBox emptyBox">Empty Seat</li>-->
+            </ul>
+            <div class="screen">
+                <h2 class="wthree">Screen this way</h2>
+            </div>
+            <!-- seat availabilty list -->
+            <table id="seatsBlock">
+                <p id="notification"></p>
+                <tr>
+                    <td></td>
+                    {% for i in row %}
+                    <td>{{i}}</td>
+                     {% ifequal i 5 %}
+                      <td></td>
+                     {% endifequal %}
+                    {% endfor %}
+                </tr>
+
+                {% for j,v in seats.items %}
+                <tr>
+                    <td>{{j}}</td>
+                    {% for i in v %}
+                    <td>
+                        {% if i in li %}
+                        <span class="smallBox redBox" value={{i}}></span>
+                        {% elif i in li2 %}
+                        <span class="smallBox greyBox" value={{i}}></span>
+                        {% else %}
+                        <input type="checkbox" class="seats" value={{i}}>
+                        <span class="smallBox catbox" id="{{ i }}"></span>
+<!--                        <span class="smallBox redBox confirmed_disp" id={{i}}>Q</span>-->
+                        {% endif %}
+                    </td>
+                        {% ifequal i v.4 %}
+                         <td></td>
+                        {% endifequal %}
+                    {% endfor %}
+
+                </tr>
+                   {% ifequal j "E" %}
+                         <tr>
+                            <td></td>
+                        </tr>
+                        {% endifequal %}
+                {% endfor %}
+            </table>
+
+            <button style="float:right;" onclick="updateTextArea()">Confirm Selection</button>
+<!--            <span class="removePending" style="background: #f5f5f5;-->
+<!--                border: none;-->
+<!--                color: #000;-->
+<!--                font-weight: 600;-->
+<!--                padding: 8px 20px;-->
+<!--                border-radius: 10px;-->
+<!--                font-size: 1em;-->
+<!--                letter-spacing: 1px;-->
+<!--                font-family: 'Source Sans Pro', sans-serif;-->
+<!--                cursor: pointer;">Remove Pending</span>-->
+        </div>
+        <!-- //seat layout -->
+
+        <div class="w3ls-reg">
+
+
+            <!-- input fields -->
+            <div style="margin-bottom: 50px;" class="inputForm">
+
+
+
+
+                 <div style="margin-right: 20px;" class="form-group">
+                    <label for="show_cat">Select Category : </label>
+                        <select class="form-control" id="show_cat" name="show_cat" required onchange="set_form_values();">
+                            {% for i in category %}
+                                    <option value="{{ i.id }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                </div>
+
+
+
+<!--                 <h2>fill the required details below and select your seats</h2>-->
+                <div class="mr_agilemain">
+                    <div class="agileits-right">
+                        <label> No: of Seats
+                            <span>*</span>
+                        </label>
+                        <input style="padding: 10px; outline: none;" type="number" id="Numseats" required min="1" readonly>
+                    </div>
+                </div>
+            </div>
+            <!-- //input fields -->
+
+
+            <!-- details after booking displayed here -->
+<!--            <form action="book_movie{{ pid }}" method="post" enctype="multipart/form-data">-->
+            <div class="" style="overflow-x:auto;">
+
+                <table class="Displaytable w3ls-table" style="width:100%">
+                    <tr>
+                        <th>Category</th>
+                        <th>Seats</th>
+                        <th>Number of Seats</th>
+
+                    </tr>
+
+                    {% for i in category %}
+
+                    <tr>
+
+                        <td>
+                            <textarea id="catDisplay{{ i.id }}" name="catDisplay{{ i.id }}" readonly>{{ i }}</textarea>
+                        </td>
+                        <td>
+                            <textarea id="seatsDisplay{{ i.id }}" name="seat{{ i.id }}" readonly></textarea><!--{% if i.seats_list %}{{ i.seats_list }}{% endif %}-->
+                        </td>
+                        <td>
+                            <textarea id="NumberDisplay{{ i.id }}" name="num{{ i.id }}" readonly></textarea><!--{% if i.seats_list %}{{ i.seats_count }}{% endif %}-->
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </table>
+
+            </div>
+
+                <input type="text" id="cat_name_sub" name="cat_name_sub">
+                <input type="text" id="screen_name_sub" name="screen_name_sub" value="{{ pid }}">
+                <input type="text" id="category_unselected" name="category_unselected">
+                <input type="hidden" id="show_date_sub" name="show_date_sub">
+
+<!--            <button type="submit" style="margin-top:2%;float:center">Book Now</button>-->
+<!--</form>-->
+            <!-- //details after booking displayed here -->
+        </div>
+    </div>
+    <div class="copy-wthree">
+    </div>
+
+
+    <!-- js -->
+    <script src="{% static 'js2/jquery-2.2.3.min.js' %}"></script>
+    <!-- //js -->
+    <!-- script for seat selection -->
+    <script>
+    function onLoaderFunc() {
+        $(".catbox").css("display", "none");
+        set_form_values();
+    }
+
+        function set_form_values()
+        {
+            //getting category name
+            $("#cat_name_sub").val($('#show_cat :selected').text())
+            updatePending();
+
+            //update_pending_seats();
+
+        }
+
+    function return_checked_seats() {
+
+            // Get checked seats
+            var rem_checked_seats = [];
+            var checked_seats = $(' .seats').filter(function() { return $(this).prop('checked') == true; });
+            var i;
+            for (i = 0; i < checked_seats.length; i++){
+                    rem_checked_seats.push(checked_seats[i].value);
+            }
+
+            return rem_checked_seats;
+
+    }
+    function set_seat_number() {
+
+            var checked_seats = return_checked_seats();
+
+            var selected_category = $('#show_cat :selected').val();
+
+            if(checked_seats.length > 0)
+            {
+                $('#NumberDisplay' + selected_category).val(checked_seats.length);
+                $('#seatsDisplay' + selected_category).val(checked_seats);
+            }
+            else
+            {
+                $('#NumberDisplay' + selected_category).val('');
+                $('#seatsDisplay' + selected_category).val('');
+            }
+
+
+    }
+     function updateTextArea() {
+
+               //Displaying
+               set_seat_number();
+
+               // Saving Category
+               var selected_category = $('#show_cat :selected').val();
+               var selected_seats = return_checked_seats().toString();
+               var screen_send = $("#screen_name_sub").val();
+
+               var color_seats = $(' .seats').filter(function() { return $(this).prop('checked') == true; });
+               console.log(color_seats);
+
+
+               $.ajax(
+               {
+                    type:"GET",
+                    url: "edit_seat{{ pid }}",
+                    data:{
+                        category : selected_category,
+                        seats: selected_seats,
+                        screen: screen_send
+                    },
+                    success: function(data)
+                    {
+                        console.log(data);
+                    }
+               })
+
+               //return_pending_seats();
+        }
+
+         function updatePending() {
+
+         var screen_send = $("#screen_name_sub").val();
+
+
+            {% for i in category %}
+
+            // hide check boxes
+                {% with i.seats_list|strtolist:pid as lists %}
+                    {% for j in lists %}
+                        console.log("{{ j }}")
+                        $(' .seats').filter(function() {
+                                  return this.value == "{{ j }}";
+                            }).css("display", "none");
+
+                    {% endfor %}
+                {% endwith %}
+
+             // show color boxes
+             {% with i.seats_list|strtolist:pid as lists %}
+                    {% for j in lists %}
+                        $('.catbox').filter(function() {
+                                  return this.id == "{{ j }}";
+                            }).addClass("color{{ i.id }}").css("display", "inline");;
+
+                    {% endfor %}
+             {% endwith %}
+
+            {% endfor %}
+
+         }
+
+     $(" .catbox").click(function () {
+
+            $(this).css("display", "none");
+
+             var curr_val = this.id;
+
+             // Show checkboxes
+            $(' .seats').filter(function() {
+                return $(this).val() == curr_val;
+            }).css("display", "inline");
+
+            // unselected category
+            var unselected_class_1 = this.className;
+            var unselected_class_2 = unselected_class_1.split(" ");
+            var unselected_class = unselected_class_2[2].split("color")[1];
+
+            // Screen
+            var screen_send = $("#screen_name_sub").val();
+
+            // seats
+            var seats_send = this.id;
+
+            // saving those unselected categories
+            $("#category_unselected").val(this.id + "$" + unselected_class);
+            $.ajax(
+               {
+                    type:"GET",
+                    url: "remove_seats",
+                    data:{
+                        category : unselected_class,
+                        seats: seats_send,
+                        screen: screen_send
+                    },
+                    success: function(data)
+                    {
+                        console.log("yeee");
+                    }
+               })
+
+     });
+
+
+     $(":checkbox").click(function () {
+           $('#Numseats').val($("input:checked").length);
+     });
+
+    </script>
+{% if error %}
+<script>
+    alert('Ticket Booked !!.');
+    window.location = "book_movie{{ pid }}";
+</script>
+{% endif %}
+</body>
+
+</html>

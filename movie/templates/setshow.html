@@ -1,0 +1,48 @@
+{% extends 'index_admin.html' %}
+{% load static %}
+{% block body %}
+<script>
+{% if error %}
+    alert('Added new movie successfully');
+    window.location = "{% url 'home' %}";
+{% endif %}
+</script>
+<section class="wthree-row pt-3 pb-5 w3-contact">
+            <div class="container py-sm-5 pt-0 pb-5">
+                <div class="py-lg-5 bg-pricemain text-center">
+                    <h3 class="agile-title text-uppercase">Set Show Timings</h3>
+                </div>
+                <div class="row contact-form pt-5">
+                    <div class="col-lg-8 wthree-form-left">
+                        <!-- contact form grid -->
+                        <div class="contact-top1">
+                            <form action="" method="post" class="f-color" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="screen"><b>Select Screen</b></label>
+                                    <select class="form-control" name="screen" id="screen" required>
+                                        {% for i in screens %}
+                                            <option value="{{ i }}">{{ i }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                {% for i in selected_screen %}
+                                <div class="form-group">
+                                    <label for="selected_show"><b>{{ i }} : </b></label>
+                                    <input type="time" name="selected_show" id="selected_show">
+                                </div>
+                                {% endfor %}
+
+                                <button type="submit" class="btn btn-info btn-block">Submit</button>
+
+                              </form>
+                    <!-- contact details -->
+                </div>
+                <!-- //contact details container -->
+            </div>
+            <!-- contact map grid -->
+            <!--//contact map grid ends here-->
+        </section>
+
+{% endblock %}

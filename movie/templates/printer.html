@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body onload="starter();">
+</body>
+
+<script type="text/javascript">
+	function starter()
+	{
+		//alert("file:///C:/Users/ABHIJITH%20UDAYAKUMAR/PycharmProjects/Movie-Ticket-Booking/{{ ticket }}");
+		window.open("../../{{ ticket }}");
+
+		var delayInMilliseconds = 3000; //3 second
+
+		setTimeout(function() {
+		  location.href="http://localhost:8000";
+		}, delayInMilliseconds);
+	}
+</script>
+
+
+</html>

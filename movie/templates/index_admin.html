@@ -1,0 +1,319 @@
+<!DOCTYPE HTML>
+{% load static %}
+<html lang="zxx">
+
+<head>
+	<title>Admin Pannel ::Movie Ticket</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<meta name="keywords" content="" />
+	<script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+
+	<!-- Bootstrap Core CSS -->
+	<link href="{% static 'css1/bootstrap.css' %}" rel='stylesheet' type='text/css' />
+
+	<!-- Custom CSS -->
+	<link href="{% static 'css1/style.css' %}" rel='stylesheet' type='text/css' />
+	<!-- font-awesome icons -->
+	<link href="{% static 'css1/fontawesome-all.min.css' %}" rel="stylesheet">
+	<!-- //Custom Theme files -->
+
+	<!-- side nav css file -->
+	<link href="{% static 'css1/SidebarNav.min.css' %}" media='all' rel='stylesheet' type='text/css' />
+	<!-- //side nav css file -->
+	<!--webfonts-->
+	<!-- logo -->
+	<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+	<!-- titles -->
+	<link href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz:200,300,400,700" rel="stylesheet">
+	<!-- body -->
+	<link href="//fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i" rel="stylesheet">
+	<!--//webfonts-->
+</head>
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		<div class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+			<!--left-fixed -navigation-->
+			<aside class="sidebar-left">
+				<h1>
+					<a href="" class="logo">
+						Admin
+					</a>
+				</h1>
+				<ul class="sidebar-menu">
+					<li class="treeview active">
+						<a href="{% url 'admin_home' %}">
+							<i class="fas fa-home"></i>
+							<span>Home</span>
+						</a>
+					</li>
+				
+					<li class="treeview">
+						<a href="{% url 'all_booking' %}">
+							<i class="fab fa-servicestack"></i>
+							<span>All Booking</span>
+						</a>
+					</li>
+					<li class="treeview">
+						<a href="#">
+							<i class="fas fa-plus"></i>
+							<span>Movie</span>
+							<i class="fa fa-angle-left pull-right"></i>
+						</a>
+						<ul class="treeview-menu">
+<!--							<li>-->
+<!--								<a href="{% url 'add_screen' %}">-->
+<!--									<i class="fa fa-angle-right"></i>Add Screen</a>-->
+<!--							</li>-->
+							<li>
+								<a href="{% url 'add_movie' %}">
+									<i class="fa fa-angle-right"></i>Add Movie</a>
+							</li>
+							<li>
+								<a href="{% url 'setshow' %}">
+									<i class="fa fa-angle-right"></i>Set Show</a>
+							</li>
+							<li>
+								<a href="{% url 'add_cat' %}">
+									<i class="fa fa-angle-right"></i>Add/Change Category</a>
+							</li>
+							<li>
+								<a href="{% url 'edit_seat' 1 %}">
+									<i class="fa fa-angle-right"></i>Edit Seats</a>
+							</li>
+						</ul>
+					</li>
+
+					<li class="treeview">
+						<a href="{% url 'collection' %}">
+							<i class="fas fa-newspaper"></i>
+							<span>Daily Collection</span>
+						</a>
+					</li>
+					
+					
+				</ul>
+				
+			</aside>
+		</div>
+	</div>
+	<!--left-fixed -navigation-->
+	<!-- header-starts -->
+	<header class="header-section">
+		<div class="header-left  clearfix">
+			<!--logo start-->
+			<div class="brand">
+				<button id="showLeftPush">
+					<i class="fas fa-bars"></i>
+				</button>
+			</div>
+			<!--logo end-->
+		</div>
+		<div class="header-right">
+		</div>
+	</header>
+	<!-- //header-ends -->
+	<!-- main content start-->
+	<div id="page-wrapper">
+		<!-- //banner -->
+		<!-- about -->
+	{% block body %}
+	{% endblock %}
+		<!-- //about -->
+	</div>
+	<!-- js-->
+	<script src="{% static 'js1/jquery-2.2.3.min.js' %}"></script>
+	<!-- js-->
+
+	<!-- for toggle left push menu script -->
+	<script src="{% static 'js1/classie.js' %} "></script>
+	<script>
+		var menuLeft = document.getElementById('cbp-spmenu-s1'),
+			showLeftPush = document.getElementById('showLeftPush'),
+			body = document.body;
+
+		showLeftPush.onclick = function () {
+			classie.toggle(this, 'active');
+			classie.toggle(body, 'cbp-spmenu-push-toright');
+			classie.toggle(menuLeft, 'cbp-spmenu-open');
+			disableOther('showLeftPush');
+		};
+
+
+		function disableOther(button) {
+			if (button !== 'showLeftPush') {
+				classie.toggle(showLeftPush, 'disabled');
+			}
+		}
+	</script>
+	<!-- //Classie -->
+	<!-- //for toggle left push menu script -->
+	<!-- side nav js -->
+	<script src="{% static 'js1/SidebarNav.min.js' %}"></script>
+	<script>
+		$('.sidebar-menu').SidebarNav()
+	</script>
+	<!-- //side nav js -->
+	<!-- script for password match -->
+	<script>
+		//window.onload = function () {
+		//	document.getElementById("password1").onchange = validatePassword;
+		//	document.getElementById("password2").onchange = validatePassword;
+		//}
+
+		//function validatePassword() {
+		//	var pass2 = document.getElementById("password2").value;
+	//		var pass1 = document.getElementById("password1").value;
+	//		if (pass1 != pass2)
+	//			document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+	//		else
+	//			document.getElementById("password2").setCustomValidity('');
+	//		//empty string means no validation error
+	//	}
+	</script>
+	<!-- script for password match -->
+	<!-- start-smooth-scrolling -->
+	<script src="{% static 'js1/move-top.js' %} "></script>
+	<script src="{% static 'js1/easing.js' %} "></script>
+	<script>
+		jQuery(document).ready(function ($) {
+			$(".scroll ").click(function (event) {
+				event.preventDefault();
+
+				$('html,body').animate({
+					scrollTop: $(this.hash).offset().top
+				}, 1000);
+			});
+		});
+	</script>
+	<!-- //end-smooth-scrolling -->
+	<!-- smooth-scrolling-of-move-up -->
+	<script>
+		$(document).ready(function () {
+			/*
+			 var defaults = {
+				 containerID: 'toTop', // fading element id
+				 containerHoverID: 'toTopHover', // fading element hover id
+				 scrollSpeed: 1200,
+				 easingType: 'linear' 
+			 };
+			 */
+
+			$().UItoTop({
+				easingType: 'easeOutQuart'
+			});
+
+		});
+	</script>
+
+	<script>
+
+	//function setTextboxes_collection(value){
+//
+//
+
+	//}
+
+		//$('#movie_select').on('change', function (e) {
+	//		console.log("Changed to ");
+//			console.log(this.value);
+		//});
+	</script>
+
+		<script>
+
+        $('#screen').on('change', function (e) {
+
+            var screen_cont = $("#screen").val();
+
+            $.ajax(
+            {
+                type:"GET",
+                url: "add_movie",
+                data:{
+                    new_data: screen_cont
+                },
+                success: function(data)
+                {
+                    console.log(data.length);
+					$(".refresh_class").remove();
+
+					for(let i = 0; i < data.length; i++){
+
+						curr_class = "selected_shows_div_class" + (i+1).toString();
+						var div_tag = '<div class="form-check form-check-inline refresh_class ' + curr_class + '" id="selected_shows_div"></div>';
+					 	$(".selected_class").append(div_tag);
+					 	var div_cont = '<input class="form-check-input" type="checkbox" value="' + data[i] + '" id="' + data[i] + '" name="show_select"><label class="form-check-label" for="asasas">' + data[i] + '</label>';
+					 	var item_class = "."+curr_class;
+					 	$(item_class).append(div_cont);
+
+					}
+
+                }
+
+            })
+
+        });
+
+	</script>
+
+
+	<script>
+
+        $("#dltbtn").click(function () {
+
+			if (confirm('Are you sure ?')) {
+
+				var select_cat = $("#cat_selected").val();
+
+				$.ajax(
+				{
+					type:"GET",
+					url: "del_cat",
+					data:{
+							id: select_cat
+					},
+			        success: function(data)
+			     	{
+						if(data == "True"){
+							alert("Category Deleted");
+						} else{
+							alert("Category Deleting Failed !!");
+						}
+						location.reload();
+			        }
+
+			    })
+
+			}
+
+           // var screen_cont = $("#screenadd").val();
+           // var pid = $("#curr_screen").val();
+
+
+
+        });
+
+	</script>
+
+
+	<script src="{% static 'js1/SmoothScroll.min.js' %} "></script>
+	<!-- //smooth-scrolling-of-move-up -->
+	<script src="{% static 'js1/counter.js' %}"></script>
+	<!-- //stats -->
+	<!-- Bootstrap Core JavaScript -->
+	<script src="{% static 'js1/bootstrap.js' %} ">
+	</script>
+	<!-- //Bootstrap Core JavaScript -->
+
+</body>
+
+</html>

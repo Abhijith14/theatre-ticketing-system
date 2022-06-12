@@ -1,0 +1,70 @@
+{% extends 'index_admin.html' %}
+{% load static %}
+{% block body %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+.glow {
+  font-size: 80px;
+  color: #fff;
+  text-align: center;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+  }
+
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+  }
+}
+
+/* Rounded border */
+hr.rounded {
+  border-top: 8px solid lightblue;
+  border-radius: 5px;
+}
+
+.prjdiv:hover{
+transform:translateY(-10px)
+}
+div .container1{
+
+width:100%;
+background-color:lightgrey;
+border-radius:8px;
+}
+h2, h4{
+ padding:10Px;
+}
+
+</style>
+	<section class="wthree-row py-sm-5 py-3">
+			<div class="container py-md-5">
+				<div class="py-lg-5 py-3 bg-pricemain text-center">
+					<h3 class="agile-title text-uppercase">admin dashboard</h3>
+					<hr>
+				</div>
+				<div class="container" style="margin-top:10%;height:150px;width:100%">
+    <div class="row" style="height:90%">
+       
+        <div style="height:100px;" class="col-md-4 prjdiv">
+            <div class="container1">
+            <h2 style="color:blue">{{total_booking}}</h2>
+            <a href="{% url 'all_booking' %}"><h4 style="color:black">Total Booking</h4>
+
+            </a>
+       </div>
+        </div>
+        
+    </div>
+</div>
+
+			</div>
+		</section>
+
+{% endblock %}

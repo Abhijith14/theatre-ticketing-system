@@ -1,0 +1,555 @@
+{% load static %}
+{% load myapp_tags %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>Movie Seat Selection Flat::Ticket Booking</title>
+    <!-- Meta-Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+
+        let ticket = 0;
+
+    </script>
+    <!-- //Meta-Tags -->
+    <!-- Index-Page-CSS -->
+    <link rel="stylesheet" href="{% static 'css2/style.css' %}" type="text/css" media="all">
+    <!-- //Custom-Stylesheet-Links -->
+    <!--fonts -->
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+    <!-- //fonts -->
+</head>
+
+<body onload="onLoaderFunc()">
+    <div style="width: 50%; margin: auto; display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 50px;" class="row">
+        {% for i in screens %}
+        {% with i|screen_id as strs %}
+        <div class="col-md-2">
+            <a href="book_movie{{ strs }}">
+                <button type="button" class="btn btn-light">{{ i }}</button>
+            </a>
+        </div>
+         {% endwith %}
+        {% endfor %}
+
+    </div>
+    <div class="container">
+
+        <!-- seat layout -->
+        <div class="seatStructure txt-center" style="overflow-x:auto;">
+             <!-- seat availabilty list -->
+             <ul class="seat_w3ls">
+                <li class="smallBox greenBox">Selected Seat</li>
+
+                <li class="smallBox redBox">Reserved Seat</li>
+
+                <li class="smallBox emptyBox">Empty Seat</li>
+
+                <li class="smallBox greyBox">Pending Seat</li>
+            </ul>
+            <div class="screen">
+                <h2 class="wthree">Screen this way</h2>
+            </div>
+            <!-- seat availabilty list -->
+            <table id="seatsBlock">
+                <p id="notification"></p>
+                <tr>
+                    <td></td>
+                    {% for i in row %}
+                    <td>{{i}}</td>
+                     {% ifequal i 5 %}
+                      <td></td>
+                     {% endifequal %}
+                    {% endfor %}
+                </tr>
+
+                {% for j,v in seats.items %}
+                <tr>
+                    <td>{{j}}</td>
+                    {% for i in v %}
+                    <td>
+                        {% if i in li %}
+                        <span class="smallBox redBox" value={{i}}></span>
+                        {% elif i in li2 %}
+                        <span class="smallBox greyBox" value={{i}}></span>
+                        {% else %}
+                        <input type="checkbox" class="seats" value={{i}}>
+                        <span class="smallBox greyBox pending_disp" id={{i}}></span>
+                        <span class="smallBox redBox confirmed_disp" id={{i}}></span>
+                        {% endif %}
+                    </td>
+                        {% ifequal i v.4 %}
+                         <td></td>
+                        {% endifequal %}
+                    {% endfor %}
+
+                </tr>
+                   {% ifequal j "E" %}
+                         <tr>
+                            <td></td>
+                        </tr>
+                        {% endifequal %}
+                {% endfor %}
+            </table>
+
+            <button onclick="updateTextArea()">Confirm Selection</button>
+            <button onclick="updatePending()">Confirm Pending</button>
+<!--            <span class="removePending" style="background: #f5f5f5;-->
+<!--                border: none;-->
+<!--                color: #000;-->
+<!--                font-weight: 600;-->
+<!--                padding: 8px 20px;-->
+<!--                border-radius: 10px;-->
+<!--                font-size: 1em;-->
+<!--                letter-spacing: 1px;-->
+<!--                font-family: 'Source Sans Pro', sans-serif;-->
+<!--                cursor: pointer;">Remove Pending</span>-->
+        </div>
+        <!-- //seat layout -->
+
+        <div class="w3ls-reg">
+
+
+            <!-- input fields -->
+            <div style="margin-bottom: 50px;" class="inputForm">
+
+
+                <div style="margin-right: 20px;" class="form-group">
+                    <label for="movie_name">Select Movie</label>
+                        <select class="form-control" id="movie_name" name="movie_name" required onchange="set_form_values();">
+                            <option selected disabled>----</option>
+                            {% for i in movies.values %}
+                            {% for j in i %}
+                            <option value="{{j}}">{{ j }}</option>
+                            {% endfor %}
+                            {% endfor %}
+                        </select>
+                  </div>
+
+                 <div style="margin-right: 20px;" class="form-group">
+                    <label for="show_time">Select Date</label>
+                        <select class="form-control" id="show_date" name="show_date" required onchange="set_form_values();">
+                            <option selected disabled>--------------</option>
+                        </select>
+                </div>
+
+
+                <div style="margin-right: 20px;" class="form-group">
+                    <label for="show_time">Select Time</label>
+                        <select class="form-control" id="show_time" name="show_time" required onchange="set_form_values();">
+                            <option selected disabled>--------------</option>
+                        </select>
+                </div>
+
+
+
+
+<!--                 <h2>fill the required details below and select your seats</h2>-->
+                <div class="mr_agilemain">
+                    <div class="agileits-right">
+                        <label> No: of Seats
+                            <span>*</span>
+                        </label>
+                        <input style="padding: 10px; outline: none;" type="number" id="Numseats" required min="1" readonly>
+                    </div>
+                </div>
+            </div>
+            <!-- //input fields -->
+
+
+            <!-- details after booking displayed here -->
+            <form action="book_movie{{ pid }}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+            <div class="" style="overflow-x:auto;">
+
+                <table class="Displaytable w3ls-table" style="width:100%">
+                    <tr>
+
+                        <th>Number of Seats</th>
+                        <th>Seats</th>
+
+                    </tr>
+                    <tr>
+
+                        <td>
+                            <textarea id="NumberDisplay" name="num" readonly></textarea>
+                        </td>
+                        <td>
+                            <textarea id="seatsDisplay" name="seat" readonly></textarea>
+                        </td>
+                    </tr>
+
+                    <tr>
+
+                        <td>
+                            <textarea id="NumberDisplay_pending" name="num_pending" readonly></textarea>
+                        </td>
+                        <td>
+                            <textarea id="seatsDisplay_pending" name="seat_pending" readonly></textarea>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+                <input type="hidden" id="movie_name_sub" name="movie_name_sub">
+                <input type="hidden" id="screen_name_sub" name="screen_name_sub" value="{{ pid }}">
+                <input type="hidden" id="show_time_sub" name="show_time_sub">
+                <input type="hidden" id="show_date_sub" name="show_date_sub">
+
+            <button type="submit" style="margin-top:2%;float:center">Book Now{{ ticket }}</button>
+            <button type="submit" formaction="free_tk{{ pid }}" style="margin-top:2%;float:center">Book Free Tickets</button>
+</form>
+            <!-- //details after booking displayed here -->
+        </div>
+    </div>
+    <div class="copy-wthree">
+    </div>
+
+
+    <!-- js -->
+    <script src="{% static 'js2/jquery-2.2.3.min.js' %}"></script>
+    <!-- //js -->
+    <!-- script for seat selection -->
+    <script>
+
+        function set_form_values()
+        {
+            //getting movie name and show timings
+            $("#show_time_sub").val($('#show_time :selected').text())
+            $("#movie_name_sub").val($('#movie_name :selected').text())
+            $("#show_date_sub").val($('#show_date :selected').text())
+
+            update_pending_seats();
+
+        }
+
+        function onLoaderFunc() {
+
+            $(" .pending_disp").css("display", "none");
+            $(" .confirmed_disp").css("display", "none");
+            if($('#movie_name :selected').text() == "----")
+            {
+                $(".seatStructure *").prop("disabled", true);
+                $("#show_date").prop("disabled", true);
+                $("#show_time").prop("disabled", true);
+            }
+
+            else
+            {
+                $(".displayerBoxes *").prop("disabled", true);
+                 $(".seatStructure *").prop("disabled", false);
+                 $("#show_date").prop("disabled", false);
+                 $("#show_time").prop("disabled", false);
+                    document.getElementById("notification").innerHTML =
+                        "<b style='margin-bottom:0px;background:#ff9800;letter-spacing:1px;'>Please Select your Seats NOW!</b>";
+
+                set_form_values();
+            }
+
+            {% if ticket %}
+                console.log("{{ ticket }}");
+            {% endif %}
+
+        }
+
+
+        function return_pending_seats() {
+
+            // Get remaining pending
+            var rem_pend_Seats = [];
+            var remaining_pend = $(' .pending_disp').filter(function() { return $(this).css("display") == "block"; });
+            var i;
+            for (i = 0; i < remaining_pend.length; i++){
+                    rem_pend_Seats.push(remaining_pend[i].id);
+            }
+
+            if(rem_pend_Seats.length > 0)
+            {
+                $('#NumberDisplay_pending').val(rem_pend_Seats.length);
+                $('#seatsDisplay_pending').val(rem_pend_Seats);
+            }
+            else{
+                $('#NumberDisplay_pending').val('');
+                $('#seatsDisplay_pending').val('');
+            }
+            set_seat_number();
+            return rem_pend_Seats;
+        }
+
+        function return_checked_seats() {
+
+            // Get checked seats
+            var rem_checked_seats = [];
+            var checked_seats = $(' .seats').filter(function() { return $(this).prop('checked') == true; });
+            var i;
+            for (i = 0; i < checked_seats.length; i++){
+                    rem_checked_seats.push(checked_seats[i].value);
+            }
+            if(rem_checked_seats.length > 0)
+            {
+                $('#NumberDisplay').val(rem_checked_seats.length);
+                $('#seatsDisplay').val(rem_checked_seats);
+            }
+            else{
+                $('#NumberDisplay').val('');
+                $('#seatsDisplay').val('');
+            }
+            return rem_checked_seats;
+
+        }
+
+        function set_seat_number() {
+
+            var checked_seats = return_checked_seats();
+            $('#Numseats').val(checked_seats.length);
+
+        }
+
+        function updateTextArea() {
+
+               //Displaying
+               set_seat_number();
+               return_pending_seats();
+        }
+
+        function add_pending_ajax(id){
+
+            console.log(id);
+
+           //$("#show_date_sub").val($("#show_date").prop("selectedIndex", 0).val());
+           //$("#show_time_sub").val($("#show_time").prop("selectedIndex", 0).val());
+
+           var movie_name_send = $("#movie_name_sub").val();
+           var screen_send = $("#screen_name_sub").val();
+           var show_time = $("#show_time_sub").val();
+           var show_date = $("#show_date_sub").val();
+           var seats = return_pending_seats().toString();
+           var seats_c = return_pending_seats().length;
+
+            console.log(seats);
+
+            $.ajax(
+            {
+                type:"GET",
+                url: "save_pending",
+                data:{
+                         movie: movie_name_send,
+                         screen: screen_send,
+                         time: show_time,
+                         date: show_date,
+                         seats_a: seats,
+                         seats_count: seats_c
+                },
+                success: function(data)
+                {
+
+                   console.log(data);
+                }
+            })
+
+
+
+        }
+
+        function updatePending() {
+
+                $('#seatsBlock :checked').each(function () {
+                    var curr_val = $(this).val();
+
+                    $(this).css("display", "none");
+
+                    $(this).prop('checked', false);
+
+                    // Show grey boxes
+                    $(' .pending_disp').filter(function() {
+                          return this.id == curr_val;
+                    }).css("display", "block");
+
+                });
+
+                add_pending_ajax(2);
+
+                 //Displaying
+
+                 set_seat_number();
+                 return_pending_seats();
+
+                $('#NumberDisplay').val('');
+                $('#seatsDisplay').val('');
+
+        }
+
+        function refresh()
+        {
+                $(' .seats').css("display", "inline");
+               $('.pending_disp').css("display", "none");
+               $(" .confirmed_disp").css("display", "none");
+               $('.seats').prop('checked', false);
+        }
+
+        function update_pending_seats()
+        {
+           var show_time = $("#show_time_sub").val();
+           var show_date = $("#show_date_sub").val();
+           var movie_name = $("#movie_name_sub").val();
+           var screen = $("#screen_name_sub").val();
+
+            refresh();
+
+            $.ajax(
+            {
+                type:"GET",
+                url: "seats_update",
+                data:{
+                         shows_time: show_time,
+                         shows_date: show_date,
+                         movie_name: movie_name,
+                         screen: screen
+                },
+                success: function(data)
+                {
+                    var conf_list_ret = data['seats_c'];
+                    var pend_list_ret = data['seats_p'];
+
+                    console.log(conf_list_ret);
+                    console.log(pend_list_ret);
+
+                    if(pend_list_ret)
+                    {
+                        const myArray = pend_list_ret.split(",")
+                        for (let i = 0; i < myArray.length; i++) {
+                            //Show grey boxes
+                            $(' .pending_disp').filter(function() {
+                                return this.id == myArray[i];
+                            }).css("display", "block");
+
+                            $(' .seats').filter(function() {
+                                return this.value == myArray[i];
+                            }).css("display", "none");
+
+                        }
+                    }
+
+                    if(conf_list_ret)
+                    {
+                        const myArray = conf_list_ret.split(",")
+                        for (let i = 0; i < myArray.length; i++) {
+                            $(' .confirmed_disp').filter(function() {
+                                return this.id == myArray[i];
+                            }).css("display", "block");
+
+                            $(' .seats').filter(function() {
+                                return this.value == myArray[i];
+                            }).css("display", "none");
+
+                        }
+                    }
+
+                }
+            })
+
+        }
+
+
+
+        $(" .pending_disp").click(function () {
+            $(this).css("display", "none");
+
+            var curr_val = this.id;
+
+            // Show checkboxes
+            $(' .seats').filter(function() {
+                return $(this).val() == curr_val;
+            }).css("display", "inline");
+
+        });
+
+        $(":checkbox").click(function () {
+           $('#Numseats').val($("input:checked").length);
+        });
+
+        $("#movie_name").change(function () {
+           $(".seatStructure *").prop("disabled", false);
+           $("#show_date").prop("disabled", false);
+           $("#show_time").prop("disabled", false);
+
+           $("#show_date_sub").val($("#show_date").prop("selectedIndex", 0).val());
+           $("#show_time_sub").val($("#show_time").prop("selectedIndex", 0).val());
+
+           var movie_name_send = $(this).val();
+           var screen_send = $("#screen_name_sub").val();
+           $.ajax(
+            {
+                type:"GET",
+                url: "book_movie{{ pid }}",
+                data:{
+                         movie_ajax_req: 0,
+                         movie: movie_name_send,
+                         screen: screen_send
+                },
+                success: function(data)
+                {
+
+                   var shows_list_ret = data['shows_list'];
+                   var date_list_ret = data['date_list'];
+
+                   var selectElem = $("#show_date");
+
+                   selectElem.empty();
+
+                    // Iterate over object and add options to select
+                    $.each(date_list_ret, function(index, value){
+                        $("<option/>", {
+                            value: value,
+                            text: value
+                        }).appendTo(selectElem);
+                    });
+
+                    $("#show_date option:first").attr('selected','selected');
+
+                    var obj = JSON.parse(shows_list_ret);
+
+                    var selectElem2 = $("#show_time");
+
+                    selectElem2.empty();
+
+                    // Iterate over object and add options to select
+                    $.each(obj, function(index, value){
+                        $("<option/>", {
+                            value: value,
+                            text: value
+                        }).appendTo(selectElem2);
+                    });
+
+                    $("#show_date_sub").val($("#show_date").prop("selectedIndex", 0).val());
+                    $("#show_time_sub").val($("#show_time").prop("selectedIndex", 0).val());
+                    update_pending_seats();
+
+                }
+             })
+        });
+
+
+    </script>
+{% if error %}
+<script>
+    alert('Ticket Booked !!.');
+    // create a global var in views. Change its value once ticket is done. Use ajax over here to find the value of global ticket. If yes, onload="window.open('https://www.google.com/');"
+    window.location = "book_movie{{ pid }}";
+</script>
+{% endif %}
+</body>
+
+</html>

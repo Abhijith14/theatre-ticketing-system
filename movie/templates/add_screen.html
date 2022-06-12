@@ -1,0 +1,95 @@
+{% extends 'index_admin.html' %}
+{% load static %}
+{% block body %}
+<script>
+{% if error %}
+    alert('Added new screen successfully');
+    window.location = "{% url 'home' %}";
+{% endif %}
+</script>
+<section class="wthree-row pt-3 pb-5 w3-contact">
+            <div class="container py-sm-5 pt-0 pb-5">
+                <div class="py-lg-5 bg-pricemain text-center">
+                    <h3 class="agile-title text-uppercase">Add Screen {{ error }}</h3>
+                </div>
+                <div class="row contact-form pt-5">
+                    <div class="col-lg-6 wthree-form-left">
+                        <!-- contact form grid -->
+                        <div class="contact-top1">
+                            <form action="" method="post" class="f-color" enctype="multipart/form-data">
+                                {% csrf_token %}
+<!--                                <div class="form-group">-->
+<!--                                    <label for="screenadd"><b>New Screen</b></label>-->
+<!--                                    <div class="input-group mb-3">-->
+<!--                                        <input type="text" class="form-control" placeholder="Add new Screen" id="screenadd" name="screenadd">-->
+<!--                                        <div class="input-group-append">-->
+<!--                                            <button class="btn btn-success" id="add_btn" name="add_btn" type="button">Add</button>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+                                <div class="form-group">
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">Select a screen</span>
+                                      </div>
+                                        <select class="custom-select" id="curr_screen">
+                                            {% for i in data %}
+                                                <option value="{{i.id}}">{{i.screen}}</option>
+                                            {% endfor %}
+                                        </select>
+                                      <input type="text" class="form-control" placeholder="Edit Screen" id="screenadd" name="screenadd">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-success" id="add_btn" name="add_btn" type="button">Edit</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="screen"><b>Screen Name</b></label> <br>
+                                    <select class="form-control" name="screen" id="screen" required>
+                                        {% for i in data %}
+                                        <option value="{{i.id}}">{{i.screen}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="show1"><b>Select Shows</b></label> <br>
+
+                                   <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="checkbox" value="1" id="show1" name="showtiming">
+                                      <label class="form-check-label" for="show1">Show 1</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="checkbox" value="2" id="show2" name="showtiming">
+                                      <label class="form-check-label" for="show2">Show 2</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="checkbox" value="3" id="show3" name="showtiming">
+                                      <label class="form-check-label" for="show3">Show 3</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="checkbox" value="4" id="show4" name="showtiming">
+                                      <label class="form-check-label" for="show4">Show 4</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="checkbox" value="5" id="show5" name="showtiming">
+                                      <label class="form-check-label" for="show5">Show 5</label>
+                                    </div>
+                                </div>
+
+
+                                <br>
+                                    <button type="button" class="btn btn-danger me-md-2">Delete</button>
+                                    <button type="submit" class="btn btn-info" style="float:right;">Submit</button>
+
+                              </form>
+                    <!-- contact details -->
+                </div>
+                <!-- //contact details container -->
+            </div>
+            <!-- contact map grid -->
+            <!--//contact map grid ends here-->
+        </section>
+
+{% endblock %}

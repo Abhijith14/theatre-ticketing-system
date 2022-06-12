@@ -1,0 +1,47 @@
+{% extends 'index_admin.html' %}
+{% load static %}
+{% block body %}
+<script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+<script>
+    $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+</script>
+
+<div class="container ">
+    <div class="container-fluid">
+        <h1 align="center" style="font-weight:bold;font-family : 'Monotype Corsiva' ; color : #E6120E ;margin-top:4%">View Movie</h1>
+        <hr></div>
+                           <table id="myTable" class="table table-bordered"  >
+                                  <thead>
+                                    <tr>
+                                      <th>#</th>
+                                      <th>Image</th>
+                                      <th>Name</th>
+                                      <th>Language</th>
+                                      <th>Type</th>
+                                      <th>Certificate</th>
+                                      <th>Director</th>
+                                      <th style="width:200px">Action</th>
+
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              {% for i in data %}
+                                <tr>
+                                  <td>{{forloop.counter}}</td>
+                                  <td><img src="{{i.image.url}}" style="width:80px;100px"></td>
+                                  <td>{{i.name}}</td>
+                                  <td>{{i.language.name}}</td>
+                                  <td>{{i.type.name}}</td>
+                                  <td>{{i.certificate.name}}</td>
+                                  <td>{{i.director}}</td>
+                                  <td style="width:150px"><a href="{% url 'edit_movie' i.id %}" ><button class="btn btn-success"><i class="fa fa-edit"></i></button></a>
+                                  <a href="{% url 'delete_movie' i.id %}" ><button class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i></button></a></td>
+                              </tr>
+                              {% endfor %}
+                          </tbody>
+                      </table>
+                  </div>
+{% endblock %}

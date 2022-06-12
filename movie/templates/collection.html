@@ -1,0 +1,65 @@
+{% extends 'index_admin.html' %}
+{% load static %}
+{% block body %}
+<script>
+{% if error %}
+    alert('Added new movie successfully');
+    window.location = "{% url 'home' %}";
+{% endif %}
+</script>
+<section class="wthree-row pt-3 pb-5 w3-contact">
+            <div class="container py-sm-5 pt-0 pb-5">
+                <div class="py-lg-5 bg-pricemain text-center">
+                    <h3 class="agile-title text-uppercase">Daily Collection Report</h3>
+                </div>
+                <div class="row contact-form pt-5">
+                    <div class="col-lg-11 wthree-form-left">
+                        <!-- contact form grid -->
+                        <div class="contact-top1">
+                            <form action="" method="post" class="f-color" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="movie_select"><b>Select movie</b></label>
+                                    <select class="form-control" name="movie_select" id="movie_select" required>
+                                        {% for i in movies_list %}
+                                            <option value="{{ i }}">{{ i }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="form-group"><br></div>
+
+<!--                                <br><br>-->
+
+<!--                               <div class="form-group">-->
+<!--                                    <label for="movie_name"><b>Movie Name</b></label>-->
+<!--                                    <input type="text" class="form-control" name="movie_name" id="movie_name" disabled required>-->
+<!--                               </div>-->
+
+<!--                                <div class="form-group">-->
+<!--                                    <label for="screen_name"><b>Screen Name</b></label>-->
+<!--                                    <input type="text" class="form-control" name="screen_name" id="screen_name" disabled required>-->
+<!--                                </div>-->
+
+<!--                                <div class="form-group">-->
+<!--                                    <label for="shows_name"><b>Shows</b></label>-->
+<!--                                    <input type="text" class="form-control" name="shows_name" id="shows_name" disabled required>-->
+<!--                                </div>-->
+
+<!--                                <div class="form-group">-->
+<!--                                    <label for="date"><b>Date</b></label>-->
+<!--                                    <input type="text" class="form-control" name="date" id="date" disabled required>-->
+<!--                                </div>-->
+
+                                <button type="submit" class="btn btn-info btn-block">Get Report</button>
+
+                              </form>
+                    <!-- contact details -->
+                </div>
+                <!-- //contact details container -->
+            </div>
+            <!-- contact map grid -->
+            <!--//contact map grid ends here-->
+        </section>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body %}
+<style>
+.mydiv:hover{
+background-color : #6E8EA7
+}
+
+.moviediv:hover{
+box-shadow:0 0 20px 0 rgba(0,0,0,0.3);
+transform:translateY(-10px)
+}
+</style>
+<div class="container-fluid">
+  <header>
+  <h3 style="font-family:roman;padding:4px;margin-top:1%">{{language}}</h3><hr></header>
+  <div class="container" style="border-radius:8px;border:2px solid blue;width:60%">
+  <div class="row">
+      <div class="col-3 col-md-3 mydiv" align="center" style="padding:8px;border-right:2px solid blue">
+        <a href="{% url 'all_movies' 0 %}" style="color:black" >All</a>
+      </div>
+      <div class="col-3 col-md-3 mydiv" align="center" style="padding:8px;border-right:2px solid blue">
+        <a href="{% url 'all_movies' 1 %}" style="color:black">Hindi</a>
+      </div>
+      <div class="col-3 col-md-3 mydiv" align="center" style="padding:8px;border-right:2px solid blue">
+        <a href="{% url 'all_movies' 2 %}" style="color:black">English</a>
+      </div>
+      <div class="col-3 col-md-3 mydiv" align="center" style="padding:8px;">
+        <a href="{% url 'all_movies' 3 %}" style="color:black">South</a>
+      </div>
+  </div>
+  </div>
+  <div class="row" style="margin-bottom:2%;margin-top:2%">
+    {% for i in data %}
+  <div class="col-6 col-md-2">
+    <a href="{% url 'movie_detail' i.id %}"><img src="{{i.image.url}}" style="height:300px;width:100%;border:2px solid grey" class="moviediv"></a>
+    <a href="{% url 'movie_detail' i.id %}"><img src="{% static 'images/booknow-button.gif' %}" style="width:100%">
+    </a>
+  </div>
+    {% endfor %}
+</div>
+</div>
+
+{% endblock %}

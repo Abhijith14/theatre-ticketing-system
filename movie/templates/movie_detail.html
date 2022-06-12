@@ -1,0 +1,71 @@
+{% extends 'index_admin.html' %}
+{% block body %}
+{% load static %}
+
+<div class="container-fluid" style="width:90%">
+    <h3 style="color:red">Details of movie "{{data.name}}"</h3><hr>
+    <div class="row">
+        <div class="col-md-5">
+            <img src="{{data.image.url}}" style="width:90%;height:500px">
+        </div>
+        <div class="col-md-7">
+            <table class="table table-bordered">
+                <tbody>
+                <tr><th>Name</th>
+                <td>{{data.name}}(<a href="{% url 'view_trailer' data.id %}" ><span style="color:red;weight:bold">View Trailer</span></a>)</td></tr>
+                <tr><th>Certificate</th>
+                <td>{{data.certificate.name}}</td></tr>
+
+                <tr><th>Type</th>
+                <td>{{data.type.name}}</td></tr>
+
+                <tr><th>Language</th>
+                <td>{{data.language.name}}</td></tr>
+
+                <tr><th>Duration</th>
+                <td>{{data.duration}}</td></tr>
+
+                <tr><th>Director</th>
+                <td>{{data.director}}</td></tr>
+
+                <tr><th>Cast</th>
+                <td>{{data.casting}}</td></tr>
+
+                <tr><th>Description</th>
+                <td>{{data.description}}</td></tr>
+
+                <tr><th>Select Date and Time</th>
+                <td>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Booking Date</label>
+                                        <input type="date" name="date" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Select Time</label>
+                                        <select class="form-control" id="exampleFormControlSelect1" name="time" required>
+                                            {% for i in time1 %}
+                                            <option value="{{i.time1}}">{{i.time1}}</option>
+                                            {% endfor %}
+                                        </select>
+                                  </div>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+
+                </td></tr>
+
+                <tr><th></th>
+                    <td><button class="btn btn-success" type="submit">Book Now</button></td></tr>
+                </form></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
